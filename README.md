@@ -3,7 +3,7 @@
  ### Pencarian Rute Terpendek Antar-Kota
   
 Metode Pencarian                : Blind Search -> BFS ( Breadth-First Search ) \
-Penalaran Logika                : Backward \
+Penalaran Logika                : Forward \
 Skema Representasi Pengetahuan  : Semantik
 
 Progress  : Unfinished Code

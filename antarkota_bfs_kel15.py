@@ -49,7 +49,7 @@ jarak_terpendek, rute_terpendek = bfs_shortestpath(graf, mulai, tujuan)
 
 
 if jarak_terpendek is None:                                 #jika tidak terdapat rute / daerah terisolasi
-    print(f"Tidak ada rute dari {mulai} ke {tujuan}.")
+    print(f"Tidak ada rute dari {mulai} ke {tujuan}")
 else:                                                       #jika terdapat rute untuk mencapai tujuan
     print(f"Diperlukan jarak tempuh sejauh {jarak_terpendek}km dan melewati {len(rute_terpendek)-2} kota untuk mencapai kota {tujuan} dengan jarak terpendek")
     for i in rute_terpendek:

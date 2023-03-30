@@ -2,27 +2,27 @@ from collections import deque
 
 # Fungsi BFS untuk mencari rute terpendek dengan bobot terkecil antar kota
 def bfs_shortestpath(graf, mulai, tujuan):
-    # Queue untuk menyimpan node-node yang dikunjungi
-    queue = deque([(mulai, 0)])
+    # Queue untuk menyimpan total jarak tempuh dan node-node yang dikunjungi
+    queue = deque([(mulai, 0, [mulai])])
     # Set untuk menyimpan node-node yang sudah dikunjungi
     visited = set()
 
     while queue:
         # penetapan current_node pada antrian pertama ( queue )
-        current_node, current_cost = queue.popleft()
+        current_node, current_cost, current_route = queue.popleft()
         # Jika current_node belum dikunjungi, maka set visited
         if current_node not in visited:
             visited.add(current_node)
 
             # return current_cost jika node saat ini sama dengan node tujuan
             if current_node == tujuan:
-                return current_cost
+                return current_cost, current_route
 
             # Tambahkan node-node tetangga yang belum dikunjungi ke dalam antrian
             for neighbor, neighbor_cost in graf[current_node].items():
                 if neighbor not in visited:
                     total_cost = current_cost + neighbor_cost
-                    queue.append((neighbor, total_cost))
+                    queue.append((neighbor, total_cost, current_route + [neighbor]))
 
             # Urutkan antrian berdasarkan cost terkecil
             queue = deque(sorted(queue, key=lambda x: x[1]))
@@ -42,9 +42,29 @@ graf = {
 
 mulai = 'A'
 tujuan = 'F'
-shortestpath_cost = bfs_shortestpath(graf, mulai, tujuan)
+# Untuk menghitung jumlah rute / node yang dilewati
+counter = 0
+# Hasil dari return akan dimasukkan masing - masing secara terpisah ke variabel jarak_terpendek dan rute_terpendek
+jarak_terpendek, rute_terpendek = bfs_shortestpath(graf, mulai, tujuan)
 
-if shortestpath_cost is None:
+
+if jarak_terpendek is None:                                 #jika tidak terdapat rute / daerah terisolasi
     print(f"Tidak ada rute dari {mulai} ke {tujuan}.")
-else:
-    print(f"Rute terpendek dengan bobot terkecil dari {mulai} ke {tujuan} adalah sebesar {shortestpath_cost}.")
+else:                                                       #jika terdapat rute untuk mencapai tujuan
+    print(f"Diperlukan jarak tempuh sejauh {jarak_terpendek}km dan melewati {len(rute_terpendek)-2} kota untuk mencapai kota {tujuan} dengan jarak terpendek")
+    for i in rute_terpendek:
+        counter += 1
+        if i == tujuan:
+           print(f" hingga tibalah di {i}")
+           # Pengecekan jumlah rute / node ke-n untuk mencapai tujuan
+           print(counter)
+        elif i == mulai:
+            print(f"Dimulai dari {i}", end='')
+        elif counter % 3 == 0:
+            print(f" lalu ke {i}", end='')
+        elif counter % 5 == 0:
+            print(f" kemudian lewati {i}", end='')
+        else:
+            print(f" selanjutnya menuju {i}", end='')
+
+    #print(f"Rute terpendek adalah {rute_terpendek} dengan bobot terkecil dari {mulai} ke {tujuan} sebesar {jarak_terpendek}.")

@@ -40,16 +40,16 @@ graf = {
     'F': {'C': 6, 'E': 1}
 }
 
-mulai = input("Masukkan kota asal       : ")
-tujuan = input("Masukkan kota tujuan    : ")
+mulai = input("Masukkan kota asal       : ").upper()
+tujuan = input("Masukkan kota tujuan    : ").upper()
 lewat = []
 
 while True:
     mampir = input("Apakah ingin menambahkan kota yang harus dilewati ( y / n )? ")
     if mampir == 'y' or mampir == 'Y':
-        tambah = input("Masukkan kota yang ingin dilewati : ")
+        tambah = input("Masukkan kota yang ingin dilewati : ").upper()
         if tambah in graf.keys():
-            lewat.append(tambah.upper())
+            lewat.append(tambah)
         else:
             print("Kota tidak terdaftar!!")
     else:
@@ -58,7 +58,7 @@ while True:
 # Menghitung jarak dan rute dari kota awal ke tujuan
 if lewat: # Menghitung jika terdapat kota yang harus dilewati
     # Jika terdapat kota tambahan dari kota awal ke kota - kota yang harus dilewati sebelum mencapai tujuan
-    jarak_terpendeklewat, rute_terpendeklewat = bfs_shortestpath(graf, mulai, lewat[0])
+    jarak_terpendeklewat, rute_terpendeklewat = bfs_shortestpath(graf, mulai.upper(), lewat[0])
 
     if len(lewat) > 1:
         for i in range(len(lewat)-1):
@@ -66,7 +66,7 @@ if lewat: # Menghitung jika terdapat kota yang harus dilewati
             jarak_terpendeklewat += jarak_temp
             rute_terpendeklewat += rute_temp[1:]
     
-    jarak_terpendek, rute_terpendek = bfs_shortestpath(graf, lewat[-1], tujuan)
+    jarak_terpendek, rute_terpendek = bfs_shortestpath(graf, lewat[-1], tujuan.upper())
     # Menghitung seluruh jarak yang terakumulasi
     totaljarak_terpendek = jarak_terpendeklewat + jarak_terpendek
     # Menggabungkan seluruh rute yang dilewati
@@ -98,4 +98,4 @@ else:                                                       #jika terdapat rute 
         else:
             print(f" selanjutnya menuju {kota}", end='')
 
-print("Rute :", totalrute_terpendek)
+print("Rute :", " -> ".join(totalrute_terpendek))

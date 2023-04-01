@@ -40,8 +40,8 @@ graf = {
     'F': {'C': 6, 'E': 1}
 }
 
-mulai = input("Masukkan kota asal       : ")
-tujuan = input("Masukkan kota tujuan    : ")
+mulai = input("Masukkan kota asal       : ").upper()
+tujuan = input("Masukkan kota tujuan    : ").upper()
 # Hasil dari return akan dimasukkan masing - masing secara terpisah ke variabel jarak_terpendek dan rute_terpendek
 jarak_terpendek, rute_terpendek = bfs_shortestpath(graf, mulai, tujuan)
 
@@ -65,4 +65,4 @@ else:                                                       #jika terdapat rute 
         else:
             print(f" selanjutnya menuju {kota}", end='')
 
-print("Rute :", rute_terpendek)
+print("Rute :", " -> ".join(rute_terpendek))

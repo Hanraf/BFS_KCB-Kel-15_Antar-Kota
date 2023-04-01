@@ -40,10 +40,8 @@ graf = {
     'F': {'C': 6, 'E': 1}
 }
 
-mulai = 'A'
-tujuan = 'F'
-# Untuk menghitung jumlah rute / node yang dilewati
-counter = 0
+mulai = input("Masukkan kota asal       : ")
+tujuan = input("Masukkan kota tujuan    : ")
 # Hasil dari return akan dimasukkan masing - masing secara terpisah ke variabel jarak_terpendek dan rute_terpendek
 jarak_terpendek, rute_terpendek = bfs_shortestpath(graf, mulai, tujuan)
 
@@ -52,19 +50,19 @@ if jarak_terpendek is None:                                 #jika tidak terdapat
     print(f"Tidak ada rute dari {mulai} ke {tujuan}.")
 else:                                                       #jika terdapat rute untuk mencapai tujuan
     print(f"Diperlukan jarak tempuh sejauh {jarak_terpendek}km dan melewati {len(rute_terpendek)-2} kota untuk mencapai kota {tujuan} dengan jarak terpendek")
-    for i in rute_terpendek:
-        counter += 1
-        if i == tujuan:
-           print(f" hingga tibalah di {i}")
-           # Pengecekan jumlah rute / node ke-n untuk mencapai tujuan
-           print(counter)
-        elif i == mulai:
-            print(f"Dimulai dari {i}", end='')
-        elif counter % 3 == 0:
-            print(f" lalu ke {i}", end='')
-        elif counter % 5 == 0:
-            print(f" kemudian lewati {i}", end='')
+    for i in range(len(rute_terpendek)):
+        kota = rute_terpendek[i]
+        if i == len(rute_terpendek)-1:
+           print(f" hingga tibalah di {kota}")
+        elif i == 0:
+            print(f"Dimulai dari {kota}", end='')
+        elif i % 3 == 0:
+            print(f" lalu ke {kota}", end='')
+        elif i % 5 == 0:
+            print(f" kemudian lewati {kota}", end='')
+        elif i % 2 == 0:
+            print(f" berikutnya {kota}", end='')
         else:
-            print(f" selanjutnya menuju {i}", end='')
+            print(f" selanjutnya menuju {kota}", end='')
 
-    #print(f"Rute terpendek adalah {rute_terpendek} dengan bobot terkecil dari {mulai} ke {tujuan} sebesar {jarak_terpendek}.")
+print("Rute :", rute_terpendek)

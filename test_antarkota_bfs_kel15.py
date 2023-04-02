@@ -32,22 +32,30 @@ def bfs_shortestpath(graf, mulai, tujuan):
 
 # Membuat graph berbobot dengan dictionary
 graf = {
-    'A': {'B': 2, 'C': 3},
-    'B': {'A': 2, 'D': 5, 'E': 1},
-    'C': {'A': 3, 'F': 11},
-    'D': {'B': 5},
-    'E': {'B': 4, 'F': 1},
-    'F': {'C': 6, 'E': 1}
+    'Surabaya': {'Gresik': 20.7, 'Sidoarjo': 27, 'Mojokerto': 51.9},
+    'Gresik': {'Surabaya': 20.7, 'Lamongan' : 29.5, 'Tuban': 93.3, 'Mojokerto': 52.4},
+    'Sidoarjo': {'Surabaya': 27, 'Malang' : 71.3, 'Mojokerto': 36.1},
+    'Malang': {'Sidoarjo': 71.3},
+    'Lamongan': {'Gresik': 30.6, 'Babat': 28.9},
+    'Babat': {'Mojokerto': 66.4,'Lamongan': 28.3, 'Tuban': 32.5, 'Bojonegoro': 37.7},
+    'Tuban': {'Bojonegoro': 45, 'Babat': 31.2, 'Gresik': 93.1},
+    'Bojonegoro': {'Tuban': 45.4,'Babat': 38.1,'Nganjuk': 65.6},
+    'Mojokerto': {'Babat': 67.1,'Lamongan': 51,'Surabaya': 52.8, 'Sidoarjo': 36.1,'Nganjuk': 71.5},
+    'Nganjuk': {'Bojonegoro': 65.6, 'Mojokerto': 73},
 }
 
-mulai = input("Masukkan kota asal       : ").upper()
-tujuan = input("Masukkan kota tujuan    : ").upper()
+print("Pilihan kota yang tersedia :")
+for i in graf.keys():
+    print(f"{i}")
+
+mulai = input("Masukkan kota asal       : ").lower().capitalize()
+tujuan = input("Masukkan kota tujuan    : ").lower().capitalize()
 lewat = []
 
 while True:
     mampir = input("Apakah ingin menambahkan kota yang harus dilewati ( y / n )? ")
     if mampir == 'y' or mampir == 'Y':
-        tambah = input("Masukkan kota yang ingin dilewati : ").upper()
+        tambah = input("Masukkan kota yang ingin dilewati berikutnya : ").lower().capitalize()
         if tambah in graf.keys():
             lewat.append(tambah)
         else:
@@ -58,7 +66,7 @@ while True:
 # Menghitung jarak dan rute dari kota awal ke tujuan
 if lewat: # Menghitung jika terdapat kota yang harus dilewati
     # Jika terdapat kota tambahan dari kota awal ke kota - kota yang harus dilewati sebelum mencapai tujuan
-    jarak_terpendeklewat, rute_terpendeklewat = bfs_shortestpath(graf, mulai.upper(), lewat[0])
+    jarak_terpendeklewat, rute_terpendeklewat = bfs_shortestpath(graf, mulai, lewat[0])
 
     if len(lewat) > 1:
         for i in range(len(lewat)-1):
@@ -66,7 +74,7 @@ if lewat: # Menghitung jika terdapat kota yang harus dilewati
             jarak_terpendeklewat += jarak_temp
             rute_terpendeklewat += rute_temp[1:]
     
-    jarak_terpendek, rute_terpendek = bfs_shortestpath(graf, lewat[-1], tujuan.upper())
+    jarak_terpendek, rute_terpendek = bfs_shortestpath(graf, lewat[-1], tujuan)
     # Menghitung seluruh jarak yang terakumulasi
     totaljarak_terpendek = jarak_terpendeklewat + jarak_terpendek
     # Menggabungkan seluruh rute yang dilewati
@@ -83,7 +91,9 @@ else:                                                       #jika terdapat rute 
     print(f"Diperlukan jarak tempuh sejauh {totaljarak_terpendek}km dan melewati {len(totalrute_terpendek)-2} kota untuk mencapai kota {tujuan} dengan jarak terpendek")
     for i in range(len(totalrute_terpendek)):
         kota = totalrute_terpendek[i]
-        if i == len(totalrute_terpendek)-1:
+        if len(totalrute_terpendek)-2 == 0 :
+            break
+        elif i == len(totalrute_terpendek)-1:
            print(f" hingga tibalah di {kota}")
         elif i == 0:
             print(f"Dimulai dari {kota}", end='')

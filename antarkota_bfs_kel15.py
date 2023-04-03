@@ -1,4 +1,5 @@
 from collections import deque
+import os
 
 # Fungsi BFS untuk mencari rute terpendek dengan bobot terkecil antar kota
 def bfs_shortestpath(graf, mulai, tujuan):
@@ -32,13 +33,13 @@ def bfs_shortestpath(graf, mulai, tujuan):
 
 # Membuat graph berbobot dengan dictionary
 graf = {
-    'Surabaya': {'Gresik': 20.7, 'Sidoarjo': 27, 'Mojokerto': 51.9},
+    'Surabaya': {'Gresik': 20.7, 'Sidoarjo': 27, 'Mojokerto': 51.9, 'Tuban': 112},
     'Gresik': {'Surabaya': 20.7, 'Lamongan' : 29.5, 'Tuban': 93.3, 'Mojokerto': 52.4},
     'Sidoarjo': {'Surabaya': 27, 'Malang' : 71.3, 'Mojokerto': 36.1},
     'Malang': {'Sidoarjo': 71.3},
     'Lamongan': {'Gresik': 30.6, 'Babat': 28.9},
     'Babat': {'Mojokerto': 66.4,'Lamongan': 28.3, 'Tuban': 32.5, 'Bojonegoro': 37.7},
-    'Tuban': {'Bojonegoro': 45, 'Babat': 31.2, 'Gresik': 93.1},
+    'Tuban': {'Bojonegoro': 45, 'Babat': 31.2, 'Gresik': 93.1, 'Surabaya': 112},
     'Bojonegoro': {'Tuban': 45.4,'Babat': 38.1,'Nganjuk': 65.6},
     'Mojokerto': {'Babat': 67.1,'Lamongan': 51,'Surabaya': 52.8, 'Sidoarjo': 36.1,'Nganjuk': 71.5},
     'Nganjuk': {'Bojonegoro': 65.6, 'Mojokerto': 73},
@@ -74,3 +75,5 @@ else:                                                       #jika terdapat rute 
             print(f" selanjutnya menuju {kota}", end='')
 
 print("Rute :", " -> ".join(rute_terpendek))
+
+os.system("PAUSE")
